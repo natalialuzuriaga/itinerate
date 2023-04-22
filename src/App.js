@@ -10,8 +10,11 @@ import {
   theme,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
 
+import DayColumn from "./components/DayColumn";
+import ActivityCard from "./components/ActivityCard";
+
+const items = [{ title: "hi", key: 1}, { title: "test", key: 2}, { title: "byte", key: 3}, { title: "ok", key: 4}]
 function App() {
   return (
     <ChakraProvider theme={theme}>
@@ -19,19 +22,9 @@ function App() {
         <Grid minH="100vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
           <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
+            <DayColumn title="Monday" items={items}/>
+            <DayColumn title="Tuesday" items={items}/>
+            <DayColumn title="Wednesday" items={items}/>
           </VStack>
         </Grid>
       </Box>
