@@ -5,6 +5,7 @@
   "dependencies": {
     "@chakra-ui/cra-template": "2.0.7",
     "@chakra-ui/react": "^2.5.5",
+    "@dnd-kit/core": "^6.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",

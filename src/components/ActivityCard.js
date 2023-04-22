@@ -1,13 +1,22 @@
 import React from "react";
+import { useDraggable } from "@dnd-kit/core";
 import { Button, Card, CardBody, CardFooter, Heading, Image, Stack, Text } from '@chakra-ui/react'
 
 const ActivityCard = (props) => {
+
+    const { attributes, listeners, setNodeRef, transform } = useDraggable({
+        id: "123"
+    })
     return (
         <Card
             direction={{ base: 'column', sm: 'row' }}
             overflow='hidden'
             variant='outline'
             size="md"
+            {...attributes}
+            {...listeners}
+            ref={setNodeRef}
+            //TODO: add the transform component?
             >
             <Image
                 objectFit='cover'
@@ -18,17 +27,10 @@ const ActivityCard = (props) => {
             <Stack>
                 <CardBody>
                 <Heading size='md'>Hollywood Hike</Heading>
-
                 <Text py='2'>
                 The Hollywood Hike is a popular hiking trail in the Hollywood Hills of Los Angeles, California. It begins at the Griffith Observatory and winds its way up to the Hollywood Sign, offering spectacular views of the city and the iconic sign along the way. The trail is approximately 3 miles long and is rated as moderate in difficulty, making it suitable for most hikers.
                 </Text>
                 </CardBody>
-
-                {/* <CardFooter>
-                <Button variant='solid' colorScheme='blue'>
-                    Buy Latte
-                </Button>
-                </CardFooter> */}
             </Stack>
             </Card>
     )
