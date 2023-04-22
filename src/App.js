@@ -10,9 +10,8 @@ import {
   theme,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
 
-import ActivityCard from "./ActivityCard";
+import ActivityCard from "./components/ActivityCard";
 
 function App() {
   return (
