@@ -1,7 +1,9 @@
 
  
 
-import { DndContext, rectIntersection } from "@dnd-kit/core";
+// import { DndContext, rectIntersection } from "@dnd-kit/core";
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 // import AddCard from "./AddCard";
 import { Flex } from "@chakra-ui/react";
 import { useState } from "react";
@@ -10,7 +12,7 @@ import DayColumn from "./DayColumn";
 
 export default function PlannerBoard() {
 
-const [mondayItems, setMondayItems] = useState([]);
+const [mondayItems, setMondayItems] = useState([{ title: "H", key: 1}, { title: "S", key: 2}, { title: "K", key: 3}, { title: "Gr", key: 4}]);
 const [tuesdayItems, setTuesdayItems] = useState([]);
 const [inProgressItems, setInProgressItems] = useState([{ title: "Hollywood Hike", key: 1}, { title: "Santa Monica Pier", key: 2}, { title: "K-Town", key: 3}, { title: "Griffith Observatory", key: 4}]);
 const [uItems, setuItems] = useState([]);
@@ -20,49 +22,50 @@ const [uItems, setuItems] = useState([]);
 //   };
 
   return (
-    <DndContext
-      collisionDetection={rectIntersection}
-      onDragEnd={(e) => {
-        console.log(e);
-        console.log(e.active.data.current?.title, "title");
-        const container = e.over?.id;
-        const title = e.active.data.current?.title ?? "";
-        const index = e.active.data.current?.index ?? 0;
-        const parent = e.active.data.current?.parent ?? "Monday";
-        if (container === "Monday") {
-          setMondayItems([...mondayItems, { title, index, parent: container}]);
-        } else if (container === "Tuesday") {
-            console.log("tuesday");
-          setTuesdayItems([...tuesdayItems, { title, index, parent: container}]);
-        } else if (container === "Unassigned") {
-          setuItems([...uItems, { title, index, parent: container}]);
-        } else {
-          console.log("in progress");
-          setInProgressItems([...inProgressItems, { title, index, parent: container}]);
-        }
-        if (parent === "Monday") {
-          setMondayItems([
-            ...mondayItems.slice(0, index),
-            ...mondayItems.slice(index + 1),
-          ]);
-        } else if (parent === "Tuesday") {
-          setTuesdayItems([
-            ...tuesdayItems.slice(0, index),
-            ...tuesdayItems.slice(index + 1),
-          ]);
-        } else if (parent === "Unassigned") {
-          setuItems([...uItems.slice(0, index), ...uItems.slice(index + 1)]);
-        } else {
-          setInProgressItems([
-            ...inProgressItems.slice(0, index),
-            ...inProgressItems.slice(index + 1),
-          ]);
-        }
-        // if(parent === container) {
-        //   console.log("do nothing lol")
-        // }
-      }}
-    >
+    // <DndProvider backend={HTML5Backend}
+    //   collisionDetection={rectIntersection}
+    //   onDragEnd={(e) => {
+    //     console.log(e);
+    //     console.log(e.active.data.current?.title, "title");
+    //     const container = e.over?.id;
+    //     const title = e.active.data.current?.title ?? "";
+    //     const index = e.active.data.current?.index ?? 0;
+    //     const parent = e.active.data.current?.parent ?? "Monday";
+    //     if (container === "Monday") {
+    //       setMondayItems([...mondayItems, { title, index, parent: container}]);
+    //     } else if (container === "Tuesday") {
+    //         console.log("tuesday");
+    //       setTuesdayItems([...tuesdayItems, { title, index, parent: container}]);
+    //     } else if (container === "Unassigned") {
+    //       setuItems([...uItems, { title, index, parent: container}]);
+    //     } else {
+    //       console.log("in progress");
+    //       setInProgressItems([...inProgressItems, { title, index, parent: container}]);
+    //     }
+    //     if (parent === "Monday") {
+    //       setMondayItems([
+    //         ...mondayItems.slice(0, index),
+    //         ...mondayItems.slice(index + 1),
+    //       ]);
+    //     } else if (parent === "Tuesday") {
+    //       setTuesdayItems([
+    //         ...tuesdayItems.slice(0, index),
+    //         ...tuesdayItems.slice(index + 1),
+    //       ]);
+    //     } else if (parent === "Unassigned") {
+    //       setuItems([...uItems.slice(0, index), ...uItems.slice(index + 1)]);
+    //     } else {
+    //       setInProgressItems([
+    //         ...inProgressItems.slice(0, index),
+    //         ...inProgressItems.slice(index + 1),
+    //       ]);
+    //     }
+    //     // if(parent === container) {
+    //     //   console.log("do nothing lol")
+    //     // }
+    //   }}
+    // >
+    <DndProvider backend={HTML5Backend}>
       <Flex flexDirection="column">
         <Flex flex="3">
             <DayColumn title="In Progress" items={inProgressItems}/>
@@ -71,6 +74,6 @@ const [uItems, setuItems] = useState([]);
             {/* <DayColumn title="Unassigned" items={uItems}/> */}
         </Flex>
       </Flex>
-    </DndContext>
+      </DndProvider>
   );
 }
