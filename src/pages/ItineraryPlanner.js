@@ -11,8 +11,6 @@ import {
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 
-import DayColumn from "../components/DayColumn";
-import ActivityCard from "../components/ActivityCard";
 import PlannerBoard from '../components/PlannerBoard';
 
 const items = [{ title: "hi", key: 1}, { title: "test", key: 2}, { title: "byte", key: 3}, { title: "ok", key: 4}]
