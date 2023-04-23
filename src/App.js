@@ -11,9 +11,9 @@ import {
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LandingPage from './LandingPage';
-import ItineraryPlanner from './ItineraryPlanner';
-import SuggestionPage from './SuggestionPage';
+import LandingPage from './pages/LandingPage';
+import ItineraryPlanner from './pages/ItineraryPlanner';
+import SuggestionPage from './pages/SuggestionPage';
 
 import PlannerBoard from "./components/PlannerBoard";
 
