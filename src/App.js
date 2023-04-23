@@ -15,10 +15,8 @@ import LandingPage from './LandingPage';
 import ItineraryPlanner from './ItineraryPlanner';
 import SuggestionPage from './SuggestionPage';
 
-import DayColumn from "./components/DayColumn";
-import ActivityCard from "./components/ActivityCard";
+import PlannerBoard from "./components/PlannerBoard";
 
-const items = [{ title: "hi", key: 1}, { title: "test", key: 2}, { title: "byte", key: 3}, { title: "ok", key: 4}]
 function App() {
   return (
     <ChakraProvider theme={theme}>
@@ -26,9 +24,7 @@ function App() {
         <Grid minH="100vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
           <VStack spacing={8}>
-            <DayColumn title="Monday" items={items}/>
-            <DayColumn title="Tuesday" items={items}/>
-            <DayColumn title="Wednesday" items={items}/>
+            
           </VStack>
         </Grid>
       </Box> */}
