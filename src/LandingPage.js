@@ -23,12 +23,17 @@ import {
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import logo from './logo.svg';
+import { useNavigate } from 'react-router-dom';
 
 function LandingPage() {
     const [value, setValue] = React.useState(50); // set initial value
     const handleChange = (newValue) => {
         setValue(newValue);
       };
+    const navigate = useNavigate();
+    function handleClick(event) {
+        navigate('/planner');
+      }
   return (
     <ChakraProvider theme={theme}>
         <Grid
@@ -72,8 +77,8 @@ function LandingPage() {
                     <SliderThumb />
                     </Slider>
                     <Center p='10'>
-                    <Button bg='green.200' size='lg' borderColor='teal.600' borderWidth={4}>
-                        Get Started!
+                    <Button bg='green.200' size='lg' borderColor='teal.600' borderWidth={4} onClick={handleClick}>
+                    Get Started!
                     </Button>
                     </Center>
                 </Box>
