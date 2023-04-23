@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import {
  Router, Routes, Route
 } from "react-router-dom";
-import LandingPage from './LandingPage';
+import LandingPage from './pages/LandingPage';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);

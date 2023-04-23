@@ -23,10 +23,10 @@ import {
   Checkbox, CheckboxGroup
 
 } from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import logo from './logo.svg';
+import { ColorModeSwitcher } from '../ColorModeSwitcher';
+import logo from '../logo.svg';
 import { useNavigate } from 'react-router-dom';
-import TravelAttraction from './TravelAttraction';
+import TravelAttraction from '../components/TravelAttraction';
 
 function SuggestionPage(props) {
     const [value, setValue] = React.useState(50); // set initial value
