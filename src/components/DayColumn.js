@@ -34,7 +34,12 @@ export default function DayColumn({ title, items }) {
         key={card.key}
         index={index}
         id={card.key}
-        title={card.title}
+        title={card._id}
+        description={card.description}
+        location={card.location}
+        picture={card.picture}
+        cost={card.cost}
+        type={card.tags}
         moveCard={moveCard}
       />
     )

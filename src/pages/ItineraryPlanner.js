@@ -20,15 +20,12 @@ const ItineraryPlanner = () => {
   const interested = loc.state.interested;
   const location = loc.state.location;  
 
-  const loading = useState(true);
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   //getEvents
   useEffect(() => {
-    if(loading) {
-    
-    // let interestedJson = JSON.stringify({interested})
-    console.log(interested, "testing");
-    console.log(`http://localhost:3001/getEvents?city=${location}&interested=${interested}`)
+    if (loading) {
     const config = {
       method: "get",
       url: `http://localhost:3001/getEvents?city=${location}&interested=${interested}`,
@@ -38,15 +35,20 @@ const ItineraryPlanner = () => {
     }
     Axios(config)
     .then(res => {
-      console.log('RES DATA' + res.data)
-    }, [loading])}});
-
+      console.log(res, "response");
+      setEvents(res.data);
+      setLoading(false);
+    })
+    .catch(error => {
+      console.log(error, "error just confused bruh");
+    });
+  }}, [loading]);
 
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
         <Grid minH="100vh" p={3}>
-          <PlannerBoard/>
+          {!loading ? (<PlannerBoard data={events}/>) : null}
         </Grid>
       </Box>
     </ChakraProvider>

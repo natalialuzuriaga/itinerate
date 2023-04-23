@@ -10,16 +10,13 @@ import { useState } from "react";
 
 import DayColumn from "./DayColumn";
 
-export default function PlannerBoard() {
+const PlannerBoard = (props) => {
 
-const [mondayItems, setMondayItems] = useState([{ title: "H", key: 1}, { title: "S", key: 2}, { title: "K", key: 3}, { title: "Gr", key: 4}]);
+// const [mondayItems, setMondayItems] = useState([{ title: "H", key: 1}, { title: "S", key: 2}, { title: "K", key: 3}, { title: "Gr", key: 4}]);
+const [mondayItems, setMondayItems] = useState([]);
 const [tuesdayItems, setTuesdayItems] = useState([]);
-const [inProgressItems, setInProgressItems] = useState([{ title: "Hollywood Hike", key: 1}, { title: "Santa Monica Pier", key: 2}, { title: "K-Town", key: 3}, { title: "Griffith Observatory", key: 4}]);
+const [inProgressItems, setInProgressItems] = useState(props.data);
 const [uItems, setuItems] = useState([]);
-
-//   const addNewCard = (title: string) => {
-//     setuItems([...uItems, { title }]);
-//   };
 
   return (
     // <DndProvider backend={HTML5Backend}
@@ -77,3 +74,5 @@ const [uItems, setuItems] = useState([]);
       </DndProvider>
   );
 }
+
+export default PlannerBoard;
