@@ -1,10 +1,11 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { useDroppable } from "@dnd-kit/core";
+
 import ActivityCard from "./ActivityCard";
 
 export default function DayColumn({ title, items }) {
   const { setNodeRef } = useDroppable({
-    id: "hi",
+    id: title,
   });
   return (
     <Flex flex="3" padding="5" flexDirection="column" minH="10rem">
@@ -17,8 +18,8 @@ export default function DayColumn({ title, items }) {
         padding="2"
         flexDirection="column"
       >
-        {items.map(({ title: cardTitle }, key) => (
-          <ActivityCard title={"hihihihi"} key={key} index={key} parent={title} />
+        {items.map(({title: cardTitle}, key) => (
+          <ActivityCard title={cardTitle} key={key} index={key} parent={title} />
         ))}
       </Flex>
     </Flex>
