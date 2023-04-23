@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 
 import { useDrop, useDrag } from "react-dnd";
-import { Button, Card, CardBody, CardFooter, Heading, Image, Stack, Text, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton} from '@chakra-ui/react'
+import { Button, Card, CardBody, CardFooter, Heading, Image, VStack, Text, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton} from '@chakra-ui/react'
 
 import { ItemTypes } from './ItemTypes.js'
 
@@ -72,7 +72,7 @@ const ActivityCard = ({id, index, moveCard, title, description, picture, locatio
     return (
     <div ref={ref} data-handler-id={handlerId}>
         <Card
-            direction={{ base: 'column', sm: 'row' }}
+            direction={{ base: 'column', sm: 'column' }}
             overflow='hidden'
             variant='outline'
             size="md"
@@ -81,22 +81,18 @@ const ActivityCard = ({id, index, moveCard, title, description, picture, locatio
             <Image
                 objectFit='cover'
                 maxW={{ base: '100%', sm: '200px' }}
+                // htmlHeight={}
                 src={picture}
                 alt='Event Picture'
             />
-            <Stack>
+            <VStack>
                 <CardBody>
                 <Heading size='md'>{title}</Heading>
-                <Text py='2'>
-                {description}
-                </Text>
                 </CardBody>
-            <CardFooter>
-                <Button ref={btnRef} onClick={onOpen} variant='solid' colorScheme='blue'>
+                <Button size="sm" padding="3" ref={btnRef} onClick={onOpen} variant='solid' colorScheme='blue'>
                     More Info
                 </Button>
-            </CardFooter>
-            </Stack>
+            </VStack>
             </Card>
 
             <Modal

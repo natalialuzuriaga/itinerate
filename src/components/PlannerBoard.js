@@ -68,7 +68,9 @@ const [uItems, setuItems] = useState([]);
             <DayColumn title="In Progress" items={inProgressItems}/>
             <DayColumn title="Monday" items={mondayItems}/>
             <DayColumn title="Tuesday" items={tuesdayItems}/>
-            {/* <DayColumn title="Unassigned" items={uItems}/> */}
+            <DayColumn title="Unassigned" items={uItems}/>
+            <DayColumn title="Unassigned" items={uItems}/>
+            <DayColumn title="Unassigned" items={uItems}/>
         </Flex>
       </Flex>
       </DndProvider>
