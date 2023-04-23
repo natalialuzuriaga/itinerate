@@ -26,14 +26,20 @@ import logo from './logo.svg';
 import { useNavigate } from 'react-router-dom';
 
 function LandingPage() {
-    const [value, setValue] = React.useState(50); // set initial value
-    const handleChange = (newValue) => {
-        setValue(newValue);
+    const [duration, setDuration] = React.useState(50); // set initial value
+    const [location, setLocation] = React.useState('None Chosen');
+    const handleDurationChange = (newValue) => {
+        setDuration(newValue);
       };
     const navigate = useNavigate();
     function handleClick(event) {
-        navigate('/planner');
+        navigate('/suggestion');
       }
+
+      const toSuggestion=()=>{
+        navigate('/suggestion',{state:{location:location, duration:duration/10}});
+          }
+
   return (
     <ChakraProvider theme={theme}>
         <Grid
@@ -46,13 +52,13 @@ function LandingPage() {
             <GridItem rowSpan={3} colSpan={5} bg='green.200' fontSize={45} textAlign='center'>
                 <Box borderRadius='18px' maxW="960px" mx="auto">
                 <Select 
-                placeholder='Where to?' fontSize={25} p='100px'
+                value={location} placeholder='Where to?' fontSize={25} p='100px'
                 bg='blue.100' textAlign='center' borderRadius={30}
                 borderColor='teal.600' borderWidth={4}
-                color='black'
+                color='black' onChange={(e) => setLocation(e.target.value)}
                 >
-                    <option value='option1'>Los Angeles</option>
-                    <option value='option2'>New York City</option>
+                    <option value='Los Angeles'>Los Angeles</option>
+                    <option value='New York City'>New York City</option>
                 </Select>
                 </Box>
                 <Box boxSize='xs' maxW="960px" mx="auto">
@@ -68,17 +74,21 @@ function LandingPage() {
                 <Box maxW="960px" mx="auto">
                     <Heading textAlign='center'>
                     <Text>How many days?</Text>
-                    <Text>{value/10}</Text>
+                    <Text>{duration/10}</Text>
                     </Heading>
-                    <Slider aria-label='slider-ex-1' defaultValue={30} value={value} onChange={handleChange} step={10}>
+                    <Slider aria-label='slider-ex-1' defaultValue={30} value={duration} onChange={handleDurationChange} step={10}>
                     <SliderTrack>
                         <SliderFilledTrack />
                     </SliderTrack>
                     <SliderThumb />
                     </Slider>
                     <Center p='10'>
-                    <Button bg='green.200' size='lg' borderColor='teal.600' borderWidth={4} onClick={handleClick}>
-                    Get Started!
+                    <Button bg='green.200' size='lg' borderColor='teal.600' borderWidth={4} onClick={()=>{toSuggestion()}}>
+                    {/* <Link
+                    to={`/suggestion?location=${location}`}
+                    > */}
+                        Get Started!
+                        {/* </Link> */}
                     </Button>
                     </Center>
                 </Box>

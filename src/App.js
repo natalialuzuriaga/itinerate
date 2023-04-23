@@ -13,6 +13,7 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from './LandingPage';
 import ItineraryPlanner from './ItineraryPlanner';
+import SuggestionPage from './SuggestionPage';
 
 import DayColumn from "./components/DayColumn";
 import ActivityCard from "./components/ActivityCard";
@@ -35,6 +36,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/planner" element={<ItineraryPlanner />} />
+        <Route path="/suggestion" element={<SuggestionPage />} />
         {/* <Route path="about" element={<About />} /> */}
       </Routes>
       </BrowserRouter>
