@@ -31,14 +31,11 @@ function LandingPage() {
     const handleDurationChange = (newValue) => {
         setDuration(newValue);
       };
+      
     const navigate = useNavigate();
-    function handleClick(event) {
-        navigate('/suggestion');
-      }
-
-      const toSuggestion=()=>{
-        navigate('/suggestion',{state:{location:location, duration:duration/10}});
-          }
+    const toSuggestion=()=>{
+      navigate('/suggestion',{state:{location:location, duration:duration/10}});
+        }
 
   return (
     <ChakraProvider theme={theme}>
@@ -58,7 +55,7 @@ function LandingPage() {
                 color='black' onChange={(e) => setLocation(e.target.value)}
                 >
                     <option value='Los Angeles'>Los Angeles</option>
-                    <option value='New York City'>New York City</option>
+                    <option value='New York'>New York City</option>
                 </Select>
                 </Box>
                 <Box boxSize='xs' maxW="960px" mx="auto">

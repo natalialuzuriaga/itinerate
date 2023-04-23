@@ -10,7 +10,10 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-const port = 3000
+const cors = require('cors');
+app.use(cors());
+
+const port = process.env.PORT || 3001
 
 // // mongoose config
 // const mongoose = require('mongoose')
@@ -47,8 +50,8 @@ app.get('/', (req, res) => {
 
 app.get('/getSuggestions', async (req, res) => {
 
-    city = req.query.city
-    console.log(`/getEvents ${city}`)
+    let city = req.query.city
+    console.log(`/getSuggestions ${city}`)
 
     // await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     // console.log('db connected')
@@ -58,12 +61,12 @@ app.get('/getSuggestions', async (req, res) => {
     console.log(allEvents)
     
     const events = []
-    for(i of allEvents) {
-        if(i['city'] == city) {
+    for(let i of allEvents) {
+        if(i['city'] === city) {
             events.push(i)
         }
     }
-    events_shuffled = [...events].sort(() => Math.random() - 0.5)
+    let events_shuffled = [...events].sort(() => Math.random() - 0.5)
     
     let ret = {}
     ret['Food'] = []
@@ -72,11 +75,12 @@ app.get('/getSuggestions', async (req, res) => {
     ret['Shopping'] = []
     ret['Nightlife'] = []
 
-    for(i of events_shuffled) {
+    for(let i of events_shuffled) {
         if(ret[i['tags']].length >= 3) {
             continue
         }
         ret[i['tags']].push(i)
+        console.log('/getSuggestions result:')
         console.log(ret)
     }
 
@@ -86,23 +90,23 @@ app.get('/getSuggestions', async (req, res) => {
 
 app.get('/getEvents', async (req, res) => {
 
-    interested = JSON.parse(req.query.interested)
-    city = req.query.city
+    let interested = JSON.parse(req.query.interested)
+    let city = req.query.city
 
     const events = []
-    for(i of allEvents) 
-        if(i['city'] == city) 
+    for(let i of allEvents) 
+        if(i['city'] === city)
             events.push(i)
-    events_shuffled = [...events].sort(() => Math.random() - 0.5)
+    let events_shuffled = [...events].sort(() => Math.random() - 0.5)
 
 
-    ret = []
+    let ret = []
 
-    for(i of interested)
-        for(j of events)
-            if(j['_id'] == i) ret.push(j)
+    for(let i of interested)
+        for(let j of events)
+            if(j['_id'] === i) ret.push(j)
 
-    for(i of events_shuffled) {
+    for(let i of events_shuffled) {
         if(ret.includes(i)) 
             continue
         ret.push(i)
