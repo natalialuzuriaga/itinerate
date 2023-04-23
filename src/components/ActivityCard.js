@@ -5,18 +5,9 @@ import { Button, Card, CardBody, CardFooter, Heading, Image, Stack, Text, useDis
 
 import { ItemTypes } from './ItemTypes.js'
 
-const ActivityCard = ({id, title, index, moveCard}) => {
+const ActivityCard = ({id, index, moveCard, title, description, picture, location, cost, type }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef(null)
-
-    // const { attributes, listeners, setNodeRef } = useDraggable({
-    //     id: props.title,
-    //     data: {
-    //         title: props.title,
-    //         index: props.index,
-    //         parent: props.parent
-    //     }
-    // })
 
     const ref = useRef(null)
     const [{ handlerId }, drop] = useDrop({
@@ -27,8 +18,6 @@ const ActivityCard = ({id, title, index, moveCard}) => {
         }
       },
       hover(item, monitor) {
-        console.log(item, "item");
-        console.log(monitor, "monitor");
         if (!ref.current) {
           return
         }
@@ -88,21 +77,18 @@ const ActivityCard = ({id, title, index, moveCard}) => {
             variant='outline'
             size="md"
             padding="5"
-            // {...attributes}
-            // {...listeners}
-            // ref={setNodeRef}
             >
             <Image
                 objectFit='cover'
                 maxW={{ base: '100%', sm: '200px' }}
-                src='https://assets.website-files.com/62aba60b94cb7948698926f0/6307becb922f3daccae12877_Blog%20-%20Hollywood%20Sign-Main%20(7)-p-800.jpg'
-                alt='Caffe Latte'
+                src={picture}
+                alt='Event Picture'
             />
             <Stack>
                 <CardBody>
                 <Heading size='md'>{title}</Heading>
                 <Text py='2'>
-                The Hollywood Hike is a popular hiking trail in the Hollywood Hills of Los Angeles, California. It begins at the Griffith Observatory and winds its way up to the Hollywood Sign, offering spectacular views of the city and the iconic sign along the way. The trail is approximately 3 miles long and is rated as moderate in difficulty, making it suitable for most hikers.
+                {description}
                 </Text>
                 </CardBody>
             <CardFooter>
