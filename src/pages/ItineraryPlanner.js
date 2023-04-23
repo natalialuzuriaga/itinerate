@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   ChakraProvider,
   Box,
@@ -9,12 +10,38 @@ import {
   Grid,
   theme,
 } from '@chakra-ui/react';
-import { ColorModeSwitcher } from '../ColorModeSwitcher';
 
 import PlannerBoard from '../components/PlannerBoard';
+import Axios from "axios";
 
-const items = [{ title: "hi", key: 1}, { title: "test", key: 2}, { title: "byte", key: 3}, { title: "ok", key: 4}]
-function ItineraryPlanner() {
+const ItineraryPlanner = () => {
+
+  const loc = useLocation();
+  const interested = loc.state.interested;
+  const location = loc.state.location;  
+
+  const loading = useState(true);
+
+  //getEvents
+  useEffect(() => {
+    if(loading) {
+    
+    // let interestedJson = JSON.stringify({interested})
+    console.log(interested, "testing");
+    console.log(`http://localhost:3001/getEvents?city=${location}&interested=${interested}`)
+    const config = {
+      method: "get",
+      url: `http://localhost:3001/getEvents?city=${location}&interested=${interested}`,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+    Axios(config)
+    .then(res => {
+      console.log('RES DATA' + res.data)
+    }, [loading])}});
+
+
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">

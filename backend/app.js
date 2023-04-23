@@ -90,7 +90,7 @@ app.get('/getSuggestions', async (req, res) => {
 
 app.get('/getEvents', async (req, res) => {
 
-    let interested = JSON.parse(req.query.interested)
+    let interested = req.query.interested.split(',')
     let city = req.query.city
 
     const events = []
