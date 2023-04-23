@@ -1,82 +1,117 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const { MongoClient, ServerApiVersion } = require('mongodb');
+
+const fs = require('fs')
 
 require('dotenv').config()
 
+// express config 
 const app = express()
-
-const pw = process.env.MONGODB_PWORD
-const uri = `mongodb+srv://ckuoch:${pw}@itinerate.belylck.mongodb.net/?retryWrites=true&w=majority`;
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 const port = 3000
 
-const client = new MongoClient(uri, {
-    serverApi: {
-      version: ServerApiVersion.v1,
-      strict: true,
-      deprecationErrors: true,
-    }
-  });
+// // mongoose config
+// const mongoose = require('mongoose')
+// const pw = process.env.MONGODB_PWORD
+// const uri = `mongodb+srv://ckuoch:${pw}@itinerate.belylck.mongodb.net/Main?retryWrites=true&w=majority`
 
+// const { Schema, model } = mongoose
 
-async function run() {
-    try {
-      // Connect the client to the server	(optional starting in v4.7)
-      await client.connect();
-      // Send a ping to confirm a successful connection
-      await client.db("admin").command({ ping: 1 });
-      console.log("Pinged your deployment. You successfully connected to MongoDB!");
-      const db = client.db("Main");
-         // Use the collection "people"
-         const col = db.collection("Event Blocks");
-        // Construct a test document                                                                                                                                                              
-        //  let testDocument = {
-        //      "name": { "first": "Alan", "last": "Turing" },
-        //      "birth": new Date(1912, 5, 23), // May 23, 1912                                                                                                                                 
-        //      "death": new Date(1954, 5, 7),  // May 7, 1954                                                                                                                                  
-        //      "contribs": [ "Turing machine", "Turing test", "Turingery" ],
-        //      "views": 1250000
-        //  }
-         // Insert a single document, wait for promise so we can read it back
-        //  const p = await col.insertOne(personDocument);
-         // Find all docs
-         const myDoc = await col.findOne();
-         // Print to the console
-         console.log(myDoc);
-        } catch (err) {
-         console.log(err.stack);
-     }
-      finally {
-      // Ensures that the client will close when you finish/error
-      await client.close();
-    }
-  }
-  run().catch(console.dir);
+// const eventSchema = new Schema({
+//     _id: String,
+//     city: String,
+//     description: String,
+//     location: String,
+//     cost: String,
+//     picture: String,
+//     tags: String,
+// },
+// {
+//     collection: 'Event Blocks'
+// }
+// )
 
+let allEvents = {}
+fs.readFile('./events.json', 'utf-8', (err, data) => {
+    if(err) throw err
+    allEvents = JSON.parse(data)
+})
 
 app.get('/', (req, res) => {
-    console.log(`reached`,);
+    console.log(`/`);
      
     res.send('Hello World!')
 })
 
-// app.get('/getCards', (req, res) => {
-//     console.log(`cards`,);
-//     if (req.query.city == "LA")
-//         {
-//             collection = LA_data
-//         }
-//     else
-//         collection = NY_data
-// })
+app.get('/getSuggestions', async (req, res) => {
 
-app.post('/getTags', (req, res) => {
-    let data = req.query
-    res.send('Data Received: ' + JSON.stringify(data))
+    city = req.query.city
+    console.log(`/getEvents ${city}`)
+
+    // await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+    // console.log('db connected')
+    // mongoose.model('Event', eventSchema)
+    // events = await mongoose.model('Event').find({ city: pars.city })
+
+    console.log(allEvents)
+    
+    const events = []
+    for(i of allEvents) {
+        if(i['city'] == city) {
+            events.push(i)
+        }
+    }
+    events_shuffled = [...events].sort(() => Math.random() - 0.5)
+    
+    let ret = {}
+    ret['Food'] = []
+    ret['Outdoor'] = []
+    ret['Landmark'] = [] 
+    ret['Shopping'] = []
+    ret['Nightlife'] = []
+
+    for(i of events_shuffled) {
+        if(ret[i['tags']].length >= 3) {
+            continue
+        }
+        ret[i['tags']].push(i)
+        console.log(ret)
+    }
+
+    res.status(200).send(ret)
+
 })
+
+app.get('/getEvents', async (req, res) => {
+
+    interested = JSON.parse(req.query.interested)
+    city = req.query.city
+
+    const events = []
+    for(i of allEvents) 
+        if(i['city'] == city) 
+            events.push(i)
+    events_shuffled = [...events].sort(() => Math.random() - 0.5)
+
+
+    ret = []
+
+    for(i of interested)
+        for(j of events)
+            if(j['_id'] == i) ret.push(j)
+
+    for(i of events_shuffled) {
+        if(ret.includes(i)) 
+            continue
+        ret.push(i)
+    }
+    
+    res.status(200).send(ret)
+    
+})
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
