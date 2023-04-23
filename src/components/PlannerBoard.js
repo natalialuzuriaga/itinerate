@@ -30,16 +30,15 @@ const [uItems, setuItems] = useState([]);
         const index = e.active.data.current?.index ?? 0;
         const parent = e.active.data.current?.parent ?? "Monday";
         if (container === "Monday") {
-          console.log("monday");
-          setMondayItems([...mondayItems, { title, index, parent}]);
+          setMondayItems([...mondayItems, { title, index, parent: container}]);
         } else if (container === "Tuesday") {
             console.log("tuesday");
-          setTuesdayItems([...tuesdayItems, { title, index, parent}]);
+          setTuesdayItems([...tuesdayItems, { title, index, parent: container}]);
         } else if (container === "Unassigned") {
-          setuItems([...uItems, { title, index, parent}]);
+          setuItems([...uItems, { title, index, parent: container}]);
         } else {
           console.log("in progress");
-          setInProgressItems([...inProgressItems, { title, index, parent}]);
+          setInProgressItems([...inProgressItems, { title, index, parent: container}]);
         }
         if (parent === "Monday") {
           setMondayItems([
@@ -59,10 +58,12 @@ const [uItems, setuItems] = useState([]);
             ...inProgressItems.slice(index + 1),
           ]);
         }
+        // if(parent === container) {
+        //   console.log("do nothing lol")
+        // }
       }}
     >
       <Flex flexDirection="column">
-        {/* <AddCard addCard={addNewCard} /> */}
         <Flex flex="3">
             <DayColumn title="In Progress" items={inProgressItems}/>
             <DayColumn title="Monday" items={mondayItems}/>
