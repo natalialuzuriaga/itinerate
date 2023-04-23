@@ -4,6 +4,10 @@ import * as ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
+import {
+ Router, Routes, Route
+} from "react-router-dom";
+import LandingPage from './LandingPage';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
