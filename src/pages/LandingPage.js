@@ -21,8 +21,8 @@ import {
   SliderMark
 
 } from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import logo from './logo.svg';
+import { ColorModeSwitcher } from '../ColorModeSwitcher';
+import logo from '../logo.svg';
 import { useNavigate } from 'react-router-dom';
 
 function LandingPage() {
