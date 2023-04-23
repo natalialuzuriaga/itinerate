@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 
 import { useDrop, useDrag } from "react-dnd";
-import { Button, Card, CardBody, CardFooter, Heading, Image, VStack, Text, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton} from '@chakra-ui/react'
+import { Button, Center, Grid, GridItem, Card, CardBody, CardFooter, Heading, Image, VStack, Text, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Img} from '@chakra-ui/react'
 
 import { ItemTypes } from './ItemTypes.js'
 
@@ -100,18 +100,47 @@ const ActivityCard = ({id, index, moveCard, title, description, picture, locatio
                 finalFocusRef={btnRef}
                 isOpen={isOpen}
                 scrollBehavior="inside"
+                h='auto'
             >
                 <ModalOverlay />
                 <ModalContent>
-                <ModalHeader>Modal Title</ModalHeader>
+                <ModalHeader fontSize="xl">{title}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <Text py='2'>
-                    The Hollywood Hike is a popular hiking trail in the Hollywood Hills of Los Angeles, California. It begins at the Griffith Observatory and winds its way up to the Hollywood Sign, offering spectacular views of the city and the iconic sign along the way. The trail is approximately 3 miles long and is rated as moderate in difficulty, making it suitable for most hikers.
-                    </Text>
+                  <Grid h='auto'
+                  templateRows='repeat(4, 1fr)'
+                  templateColumns='repeat(5, 1fr)'>
+                   <GridItem alignItems="center" rowSpan={4} colSpan={3} borderRadius="8px"
+                 height='auto' textAlign='center' bg='gray.200' p={5}>
+                       <Text fontWeight='italic' mb='1rem'>
+                 {description}
+                 </Text>
+                  </GridItem>
+                  <GridItem alignItems="center" rowSpan={4} colSpan={2} borderRadius="8px"
+                 height='auto' textAlign='center'>
+                  <Text fontWeight='italic' mb='1rem'>
+                 {type}
+                 </Text>
+                 <Text fontWeight='italic' mb='1rem'>
+                 {cost}
+                 </Text>
+                 <Text fontWeight='italic' mb='1rem'>
+                 {location}
+                 </Text>
+                  </GridItem>
+                  </Grid>
                 </ModalBody>
+                <Center>
+                <Image
+                objectFit='cover'
+                p={8}
+                maxW={{ base: '100%'}}
+                // htmlHeight={}
+                src={picture}
+                alt='Event Picture'
+            />
+                </Center>
                 <ModalFooter>
-                    <Button onClick={onClose}>Close</Button>
                 </ModalFooter>
                 </ModalContent>
             </Modal>
